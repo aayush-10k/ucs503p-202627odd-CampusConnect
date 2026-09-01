@@ -1,24 +1,32 @@
-SHELL	:= /bin/zsh
+.PHONY: all install build dev start db-migrate db-seed clean
 
-CXXFLAGS:= -O2 -Wall -Wextra -fPIC
-CXXFLAGS += -std=c++17 -Iinc
+all: install
 
-LDFLAGS += -Ldist/lib
+# Install Node.js dependencies
+install:
+	npm install
 
-all: dist/lib dist/bin dist/obj/lib/Bvr/Math dist/lib/libbvr_math.so dist/bin/run
+# Run Prisma DB migration (first time or after schema changes)
+db-migrate:
+	npx prisma migrate dev --name init
+	npx prisma generate
 
-dist/obj/lib/Bvr/Math/math.o : src/lib/Bvr/Math/math.cpp
-	$(CXX) $(CXXFLAGS) $(CFLAGS) $(FLAGS) -c -o $@ $^
+# Seed the database with initial data (Admin, Teacher, Students, Group)
+db-seed:
+	npx tsx prisma/seed.ts
 
-dist/lib/libbvr_math.so : FLAGS+= -shared -Wl,-soname,libbvr_math.so
-dist/lib/libbvr_math.so : dist/obj/lib/Bvr/Math/math.o
-	$(CXX) $(CXXFLAGS) $(CFLAGS) $(FLAGS) -o $@ $^
+# Build the production Next.js bundle
+build:
+	npm run build
 
-dist/bin/run : src/bin/run_main.cpp 
-	$(CXX) $(CXXFLAGS) $(CFLAGS) $(LDFLAGS) $(FLAGS) -lbvr_math -o $@ $^
+# Start the development server (Next.js + Socket.io)
+dev:
+	npm run dev
 
-dist/lib dist/bin dist/obj/lib/Bvr/Math:
-	-mkdir -p $(@)
+# Start the production server
+start:
+	npm run start
 
+# Remove build artifacts
 clean:
-	rm -rf dist
+	rm -rf .next dist
