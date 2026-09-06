@@ -34,7 +34,7 @@ async function verifyAll() {
     console.log(`      • Groups in DB: ${groupCount}`);
     console.log(`      • Posts in DB: ${postCount}`);
     console.log("      • Sample Users:");
-    users.forEach((u) => console.log(`        - [${u.role}] ${u.name} (${u.email})`));
+    users.forEach((u: { email: string; role: string; name: string }) => console.log(`        - [${u.role}] ${u.name} (${u.email})`));
 
     await prisma.$disconnect();
     await pool.end();
