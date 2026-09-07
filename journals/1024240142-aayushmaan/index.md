@@ -1,8 +1,7 @@
-# Bhanu’s Journal
+# Aayushmaan’s Journal
 
-Roll No. 1024030xxx
-Name: Bhanurekha Ganesan
+Roll No. 1024240142  
+Name: Aayushmaan Singh Meyan  
 
-+  [W1 : Order of flags in compilation
-   command](./w1-ticket-resolution.md)
++  [W1 : Project Architecture Scaffold, Relational Schema & Database Seeding](./w1-ticket-resolution.md)
 +  […]
