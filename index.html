@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-sum-function-in-c" class="md-skip">
+        <a href="#campusconnect-academic-social-networking-platform" class="md-skip">
           Skip to content
         </a>
       
@@ -299,10 +299,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#1-executive-summary-motivation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        1. Executive Summary &amp; Motivation
       
     </span>
   </a>
@@ -310,13 +310,130 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#2-system-architecture-tech-stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usage
+        2. System Architecture &amp; Tech Stack
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-roles-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Core Roles &amp; Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Roles &amp; Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-software-engineering-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Software Engineering Artifacts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Software Engineering Artifacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-uml-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 UML Diagrams
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-data-flow-diagrams-dfds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Data Flow Diagrams (DFDs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-project-schedule-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Project Schedule &amp; Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-team-sprint-journals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Team Sprint Journals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-running-the-web-application-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Running the Web Application Locally
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Running the Web Application Locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-seeded-test-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Seeded Test Accounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -701,30 +818,188 @@
 
 <p><img alt="Tiet Logo" class="tiet-logo" src="assets/tiet-logo.svg" /></p>
 <p><strong>UCS503: Software Engineering (Project)</strong><br />
-<strong>TIET Patiala</strong></p>
-<h1 id="the-sum-function-in-c">The Sum Function in C++</h1>
-<p><strong>Author(s)</strong>:</p>
-<p><code>(RGB)</code> Raghav B. Venkataramaiyer <code>&lt;bv.raghav -at-
-thapar -dot- edu&gt;</code></p>
-<p>This project creates a sum function in c++ as a sample
-to illustrate how to compile a shared library and
-distribute it for use along with the binary.</p>
-<h2 id="installation">Installation</h2>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make<span class="w"> </span>-C<span class="w"> </span>code
+<strong>Thapar Institute of Engineering &amp; Technology (TIET), Patiala</strong></p>
+<h1 id="campusconnect-academic-social-networking-platform">CampusConnect — Academic &amp; Social Networking Platform</h1>
+<p><strong>Team Members:</strong>
+- <strong>Aayushmaan Singh Meyan</strong> (Roll No. <code>1024240142</code>) — <a href="journals/1024240142-aayushmaan/">Member Journal</a>
+- <strong>Divyansh Jasrotia</strong> (Roll No. <code>1024240008</code>) — <a href="journals/1024240008-divyansh/">Member Journal</a>
+- <strong>Prakhar Saxena</strong> (Roll No. <code>1024240019</code>) — <a href="journals/1024240019-prakhar/">Member Journal</a></p>
+<hr />
+<h2 id="1-executive-summary-motivation">1. Executive Summary &amp; Motivation</h2>
+<p>In modern academic environments, communication is deeply fragmented across informal WhatsApp groups, Telegram channels, and chaotic email threads. This fragmentation causes missed academic deadlines, unverified circulars, lack of access control, and lost lecture materials.</p>
+<p><strong>CampusConnect</strong> is a closed-community, role-aware academic and social networking platform built for higher education institutions. It provides an institution-verified space that integrates:
+- <strong>Role-Based Access Control (RBAC):</strong> Distinct workflows tailored for <strong>Students</strong>, <strong>Teachers</strong>, and <strong>Administrators</strong>.
+- <strong>Course &amp; Batch Hubs:</strong> Groups dedicated to subjects, lab sections, and student batches with centralized lecture notes and syllabus materials.
+- <strong>Academic Schedule Board:</strong> Centralized calendar tracking lectures, assignment deadlines, and exam schedules with automated notifications.
+- <strong>Real-Time Communication:</strong> Direct 1-on-1 messaging and live notification alerts powered by WebSockets.
+- <strong>Agentic AI Moderation:</strong> Automated sentiment and policy scanning powered by Google Gemini AI to maintain a safe campus community.</p>
+<hr />
+<h2 id="2-system-architecture-tech-stack">2. System Architecture &amp; Tech Stack</h2>
+<p>The platform is designed with a modern, decoupled full-stack architecture located in the <a href="https://github.com/aayush-10k/ucs503p-202627odd-CampusConnect/tree/master/code"><code>code/</code></a> folder:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Technology</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Frontend &amp; SSR</strong></td>
+<td style="text-align: left;">Next.js 16.3.4 (App Router, React 19)</td>
+<td style="text-align: left;">Server Components, dynamic client views, and route caching</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Language</strong></td>
+<td style="text-align: left;">TypeScript 5.x</td>
+<td style="text-align: left;">Strict end-to-end type safety</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Styling</strong></td>
+<td style="text-align: left;">Tailwind CSS v4 + Radix UI Primitives</td>
+<td style="text-align: left;">Responsive block-based design system, modals, and toasts</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Database</strong></td>
+<td style="text-align: left;">Neon Cloud PostgreSQL</td>
+<td style="text-align: left;">High-availability PostgreSQL database with connection pooling</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ORM</strong></td>
+<td style="text-align: left;">Prisma 7 (<code>@prisma/adapter-pg</code>)</td>
+<td style="text-align: left;">Relational data models, declarative migrations, and type-safe queries</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Auth &amp; Security</strong></td>
+<td style="text-align: left;">NextAuth.js v4 + bcryptjs</td>
+<td style="text-align: left;">Credentials authentication, JWT sessions, and RBAC edge guards</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Real-Time Engine</strong></td>
+<td style="text-align: left;">Socket.io</td>
+<td style="text-align: left;">Instant messaging, typing presence, and notification alerts</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cloud Storage</strong></td>
+<td style="text-align: left;">Cloudinary CDN</td>
+<td style="text-align: left;">Secure storage and transformation of avatars, PDFs, and media</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AI Moderation</strong></td>
+<td style="text-align: left;">Google Gemini API (<code>@google/genai</code>)</td>
+<td style="text-align: left;">Agentic post moderation, hate-speech detection, and text filtering</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-core-roles-capabilities">3. Core Roles &amp; Capabilities</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    Admin[Administrator] --&gt;|Manages| Users[User Verification &amp; Roles]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    Admin --&gt;|Configures| Policy[Platform Policies &amp; AI Sensitivity]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    Admin --&gt;|Resolves| Moderation[AI Moderation Queue]
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    Teacher[Faculty / Teacher] --&gt;|Creates| Groups[Subject &amp; Batch Groups]
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    Teacher --&gt;|Distributes| Materials[Course Materials &amp; Syllabi]
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    Teacher --&gt;|Schedules| Events[Lectures &amp; Exam Calendars]
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    Student[Student] --&gt;|Engages In| Feed[Campus Social Feed]
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    Student --&gt;|Participates In| Study[Batch Groups &amp; Discussions]
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    Student --&gt;|Communicates Via| Chat[Real-time Direct Chat]
 </span></code></pre></div>
-<p>This will create create a folder <code>dist</code> in <code>code</code>
-folder, with following contents</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>dist
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> +-lib
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> |  \-libbvr_math.so
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> +-bin
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    \-run
+<h3 id="roles-breakdown">Roles Breakdown</h3>
+<ol>
+<li><strong>Student:</strong> Verified student feed, batch discussions, study materials downloads, personal &amp; course calendar, real-time messaging.</li>
+<li><strong>Teacher / Faculty:</strong> Academic group creation, file uploads (slides, PDFs, assignments), schedule publishing with automated member notifications.</li>
+<li><strong>Administrator:</strong> System dashboard, tokenized invitation links, user management table, policy configuration, and flagged content resolution.</li>
+</ol>
+<hr />
+<h2 id="4-software-engineering-artifacts">4. Software Engineering Artifacts</h2>
+<h3 id="41-uml-diagrams">4.1 UML Diagrams</h3>
+<ul>
+<li><strong>Use Case Diagram:</strong> <a href="UML/UseCaseDiagram.png">View Full Diagram</a></li>
+</ul>
+<h3 id="42-data-flow-diagrams-dfds">4.2 Data Flow Diagrams (DFDs)</h3>
+<ul>
+<li><strong>Level 0 (Context Diagram):</strong> <a href="DFD/Level%200/lvl0.png">View Level 0 DFD</a></li>
+<li><strong>Level 1 (System Decomposition):</strong> <a href="DFD/Level%201/lvl1.png">View Level 1 DFD</a></li>
+<li><strong>Level 2 (Detailed Functional Decomposition):</strong></li>
+<li><a href="DFD/Level%202/lvl2.4.png">Subsystem 2.4 — Materials &amp; Course Hub</a></li>
+<li><a href="DFD/Level%202/lvl2.7.png">Subsystem 2.7 — Real-Time Messaging</a></li>
+<li><a href="DFD/Level%202/lvl2.8.png">Subsystem 2.8 — Admin Control &amp; Moderation</a></li>
+</ul>
+<h3 id="43-project-schedule-milestones">4.3 Project Schedule &amp; Milestones</h3>
+<ul>
+<li><strong>Gantt Chart:</strong> <a href="simple-gantt-chart_ms.xlsx">Download Excel Plan</a></li>
+</ul>
+<hr />
+<h2 id="5-team-sprint-journals">5. Team Sprint Journals</h2>
+<p>Each team member documents their weekly development tickets, engineering decisions, and architecture contributions:</p>
+<ul>
+<li><a href="journals/1024240142-aayushmaan/">Aayushmaan Singh Meyan (<code>1024240142</code>)</a></li>
+<li><a href="journals/1024240008-divyansh/">Divyansh Jasrotia (<code>1024240008</code>)</a></li>
+<li><a href="journals/1024240019-prakhar/">Prakhar Saxena (<code>1024240019</code>)</a></li>
+</ul>
+<hr />
+<h2 id="6-running-the-web-application-locally">6. Running the Web Application Locally</h2>
+<p>The complete source code is located in the <a href="https://github.com/aayush-10k/ucs503p-202627odd-CampusConnect/tree/master/code"><code>code/</code></a> folder.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 1. Enter the application directory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>code
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># 2. Install dependencies</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>npm<span class="w"> </span>install
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># 3. Setup environment variables</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># 4. Generate Prisma client &amp; sync database</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>npx<span class="w"> </span>prisma<span class="w"> </span>generate
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>npx<span class="w"> </span>prisma<span class="w"> </span>migrate<span class="w"> </span>dev<span class="w"> </span>--name<span class="w"> </span>init
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># 5. Seed default test accounts &amp; batch data</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>npx<span class="w"> </span>tsx<span class="w"> </span>prisma/seed.ts
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1"># 6. Start the development server</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>npm<span class="w"> </span>run<span class="w"> </span>dev
 </span></code></pre></div>
-<h2 id="usage">Usage</h2>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>code
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>dist/lib
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>./dist/bin/run
-</span></code></pre></div>
+<p>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
+<h3 id="default-seeded-test-accounts">Default Seeded Test Accounts</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Email</th>
+<th style="text-align: left;">Password</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Admin</strong></td>
+<td style="text-align: left;"><code>admin@campus.edu</code></td>
+<td style="text-align: left;"><code>Password123!</code></td>
+<td style="text-align: left;">Full control panel &amp; moderation queue</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Teacher</strong></td>
+<td style="text-align: left;"><code>teacher@campus.edu</code></td>
+<td style="text-align: left;"><code>Password123!</code></td>
+<td style="text-align: left;">Group creation &amp; material uploads</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Student</strong></td>
+<td style="text-align: left;"><code>alex@campus.edu</code></td>
+<td style="text-align: left;"><code>Password123!</code></td>
+<td style="text-align: left;">Sophomore CSE student</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Student</strong></td>
+<td style="text-align: left;"><code>priya@campus.edu</code></td>
+<td style="text-align: left;"><code>Password123!</code></td>
+<td style="text-align: left;">Junior CSE student</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -745,7 +1020,7 @@ folder, with following contents</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 31, 2026 07:23:22 UTC">July 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 13, 2026 17:18:26 UTC">September 13, 2026</span>
   </span>
 
     
@@ -756,11 +1031,12 @@ folder, with following contents</p>
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:aayushmaansinghmeyan@gmail.com">Aayushmaan Singh Meyan</a>, 
         <a href="mailto:bvraghav@gmail.com">Raghav B. Venkataramaiyer</a>
     </nav>
   </span>
