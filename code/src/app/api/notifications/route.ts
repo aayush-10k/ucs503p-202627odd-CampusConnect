@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       notifications,
       unreadCount,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("GET /api/notifications error:", error);
     return NextResponse.json(
       { error: "Failed to fetch notifications" },
@@ -53,7 +53,7 @@ export async function PATCH(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, message: "All notifications marked as read" });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("PATCH /api/notifications error:", error);
     return NextResponse.json(
       { error: "Failed to update notifications" },

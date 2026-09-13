@@ -2,15 +2,17 @@
 
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { Image as ImageIcon, Send, X, Sparkles, ShieldCheck, AlertCircle } from "lucide-react";
+import { Image as ImageIcon, Send, X, ShieldCheck, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { getInitials } from "@/lib/utils";
 
 interface CreatePostBoxProps {
   onPostCreated: () => void;
+  groupId?: string;
+  placeholder?: string;
 }
 
-export function CreatePostBox({ onPostCreated }: CreatePostBoxProps) {
+export function CreatePostBox({ onPostCreated, groupId, placeholder }: CreatePostBoxProps) {
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -72,6 +74,7 @@ export function CreatePostBox({ onPostCreated }: CreatePostBoxProps) {
         body: JSON.stringify({
           content: content.trim(),
           imageUrl,
+          groupId: groupId || undefined,
         }),
       });
 
@@ -120,7 +123,7 @@ export function CreatePostBox({ onPostCreated }: CreatePostBoxProps) {
             rows={3}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Share an announcement, project update, or ask a question to campus peers..."
+            placeholder={placeholder || "Share an announcement, project update, or ask a question to campus peers..."}
             maxLength={1000}
             className="w-full px-3.5 py-2.5 text-sm sm:text-base rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 transition-all resize-none"
           />

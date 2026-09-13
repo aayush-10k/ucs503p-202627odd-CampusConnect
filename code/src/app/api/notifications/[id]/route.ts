@@ -34,7 +34,7 @@ export async function PATCH(
     });
 
     return NextResponse.json(updated);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("PATCH /api/notifications/[id] error:", error);
     return NextResponse.json(
       { error: "Failed to update notification" },
