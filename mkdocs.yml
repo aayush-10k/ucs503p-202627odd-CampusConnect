@@ -41,8 +41,8 @@ theme:
     repo: fontawesome/brands/github
     annotation: material/plus-circle-outline
   palette:
-    primary: amber
-    accent: orange
+    primary: indigo
+    accent: blue
   logo: assets/tiet-logo.svg
   favicon: assets/favicon.png
 
@@ -67,8 +67,11 @@ markdown_extensions:
   - abbr
   - md_in_html
   - attr_list
+  - admonition
+  - pymdownx.details
   - toc:
       permalink: true
+      toc_depth: 4
   - footnotes
   - pymdownx.arithmatex:
       generic: true
@@ -97,7 +100,4 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
-  # - mkdocs-click
-  - toc:
-      toc_depth: 4
   - sane_lists
