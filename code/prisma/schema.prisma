@@ -137,6 +137,19 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model InviteToken {
+  id         String   @id @default(cuid())
+  token      String   @unique @default(cuid())
+  role       Role     @default(STUDENT)
+  label      String?                        // e.g. "CSE Batch 2025"
+  maxUses    Int      @default(1)
+  usedCount  Int      @default(0)
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  createdBy  String                         // Admin user id (not a FK to keep it simple)
+}
+
+
 // ─────────────────────────────────────────────
 // Social Feed
 // ─────────────────────────────────────────────

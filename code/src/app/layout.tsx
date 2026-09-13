@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "@/components/layout/Providers";
 
 export const metadata: Metadata = {
   title: "CampusConnect — Closed-Community Academic & Social Platform",
@@ -21,8 +22,27 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="min-h-full flex flex-col antialiased">
-        {/* SessionProvider and Toasts will be added in Phase 3 */}
-        {children}
+        <Providers>
+          {children}
+        </Providers>
+        <style>{`
+          /* ── Radix Toast Viewport ──────────────────────── */
+          .toast-viewport {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            width: 360px;
+            max-width: calc(100vw - var(--space-8));
+            z-index: 9999;
+            outline: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+        `}</style>
       </body>
     </html>
   );

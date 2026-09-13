@@ -1,4 +1,4 @@
-![Tiet Logo](assets/tiet-logo.svg){ .tiet-logo }
+![Tiet Logo](assets/tiet-logo.svg)
 
 **UCS503: Software Engineering (Project)**  
 **Thapar Institute of Engineering & Technology (TIET), Patiala**
@@ -27,7 +27,7 @@ In modern academic environments, communication is deeply fragmented across infor
 
 ## 2. System Architecture & Tech Stack
 
-The platform is designed with a modern, decoupled full-stack architecture located in the [`code/`](https://github.com/aayush-10k/ucs503p-202627odd-CampusConnect/tree/master/code) folder:
+The platform is designed with a modern, decoupled full-stack architecture located in the [`code/`](../code) folder:
 
 | Layer | Technology | Purpose |
 |:--|:--|:--|
@@ -89,15 +89,15 @@ graph TD
 
 Each team member documents their weekly development tickets, engineering decisions, and architecture contributions:
 
-- [Aayushmaan Singh Meyan (`1024240142`)](journals/1024240142-aayushmaan/index.md)
-- [Divyansh Jasrotia (`1024240008`)](journals/1024240008-divyansh/index.md)
-- [Prakhar Saxena (`1024240019`)](journals/1024240019-prakhar/index.md)
+- [Aayushmaan Singh Meyan (`1024240142`)](../journals/1024240142-aayushmaan/index.md)
+- [Divyansh Jasrotia (`1024240008`)](../journals/1024240008-divyansh/index.md)
+- [Prakhar Saxena (`1024240019`)](../journals/1024240019-prakhar/index.md)
 
 ---
 
 ## 6. Running the Web Application Locally
 
-The complete source code is located in the [`code/`](https://github.com/aayush-10k/ucs503p-202627odd-CampusConnect/tree/master/code) folder.
+The complete source code is located in the [`code/`](../code) folder.
 
 ```bash
 # 1. Enter the application directory
