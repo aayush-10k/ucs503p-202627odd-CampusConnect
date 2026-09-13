@@ -8,6 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Nunito:ital,wght@0,700;0,800;0,900;1,700&display=swap');
 
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary: #E11D48;
@@ -28,13 +29,13 @@
   --color-on-secondary:     #0F172A;
   --color-accent:           #2563EB;
   --color-on-accent:        #FFFFFF;
-  --color-background:       #FFF1F2;
-  --color-foreground:       #881337;
+  --color-background:       #F8FAFC;
+  --color-foreground:       #0F172A;
   --color-card:             #FFFFFF;
-  --color-card-foreground:  #1E1B4B;
-  --color-muted:            #F8FAFC;
+  --color-card-foreground:  #0F172A;
+  --color-muted:            #F1F5F9;
   --color-muted-foreground: #64748B;
-  --color-border:           #FECDD3;
+  --color-border:           #E2E8F0;
   --color-destructive:      #DC2626;
   --color-on-destructive:   #FFFFFF;
   --color-ring:             #E11D48;
@@ -65,10 +66,10 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm:  0 1px 3px rgba(225, 29, 72, 0.08), 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md:  0 4px 16px rgba(225, 29, 72, 0.10), 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-lg:  0 8px 32px rgba(225, 29, 72, 0.12), 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-card: 0 2px 12px rgba(225, 29, 72, 0.07);
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04);
 
   /* Typography */
   --font-heading: 'Nunito', system-ui, sans-serif;
@@ -83,18 +84,16 @@
 }
 
 /* ── Dark Mode Overrides ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background:       #0B0710;
-    --color-foreground:       #F8E4EA;
-    --color-card:             #140E1E;
-    --color-card-foreground:  #F1E4F7;
-    --color-muted:            #1B1228;
-    --color-muted-foreground: #94A3B8;
-    --color-border:           #2E1825;
-    --color-text-primary:     #F1E4F7;
-    --color-text-secondary:   #94A3B8;
-  }
+.dark {
+  --color-background:       #070A11;
+  --color-foreground:       #F8FAFC;
+  --color-card:             #0E131F;
+  --color-card-foreground:  #F8FAFC;
+  --color-muted:            #131A29;
+  --color-muted-foreground: #94A3B8;
+  --color-border:           #1E293B;
+  --color-text-primary:     #F8FAFC;
+  --color-text-secondary:   #94A3B8;
 }
 
 /* ── Base Styles ── */
@@ -104,6 +103,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--color-background);
 }
 
 body {
