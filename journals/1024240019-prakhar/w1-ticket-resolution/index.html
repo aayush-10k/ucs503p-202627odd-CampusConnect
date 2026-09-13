@@ -76,7 +76,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -861,29 +861,29 @@
   
 
 
-<h1 id="week-1-ai-moderation-pipeline-real-time-client-edge-route-guard">Week 1 : AI Moderation Pipeline, Real-Time Client &amp; Edge Route Guard</h1>
+<h1 id="week-1-ai-moderation-pipeline-real-time-client-edge-route-guard">Week 1 : AI Moderation Pipeline, Real-Time Client &amp; Edge Route Guard<a class="headerlink" href="#week-1-ai-moderation-pipeline-real-time-client-edge-route-guard" title="Permanent link">&para;</a></h1>
 <p><strong>Author:</strong> Prakhar Saxena (Roll No. 1024240019)<br />
 <strong>Project:</strong> CampusConnect — Closed-Community Academic &amp; Social Platform<br />
 <strong>Component:</strong> Phase 2 — Core Library Setup (AI Engine, WebSocket Client, Route Security)  </p>
 <hr />
-<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks</h2>
+<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks<a class="headerlink" href="#1-overview-of-assigned-tasks" title="Permanent link">&para;</a></h2>
 <p>During Phase 2 of CampusConnect, I was responsible for implementing the AI-powered content safety subsystem, real-time communication scaffolding, shared frontend utilities, and edge-level route authorization:
 1. <strong>Task 2.5 — Gemini AI Content Moderation Helper (<code>src/lib/gemini.ts</code>)</strong>: Built an intelligent policy moderation function using the Google Gemini API (<code>gemini-2.5-flash</code>) that scans student and teacher posts against campus conduct standards with configurable sensitivity levels (Strict, Moderate, Lenient).
 2. <strong>Task 2.6 — Utility Functions (<code>src/lib/utils.ts</code>)</strong>: Developed shared UI and string utilities, including the foundational <code>cn()</code> helper (combining <code>clsx</code> and <code>tailwind-merge</code>) to safely resolve Tailwind CSS class collisions, as well as <code>formatDate()</code>, <code>timeAgo()</code>, <code>truncate()</code>, and <code>getInitials()</code>.
 3. <strong>Task 2.7 — Socket.io Client Helper (<code>src/lib/socket.ts</code>)</strong>: Implemented a browser-safe, lazy-initialized Socket.io client singleton to support live notifications and 1-on-1 direct messaging without opening duplicate WebSocket handshakes on component re-renders.
 4. <strong>Task 2.8 — Route Guard Middleware (<code>src/middleware.ts</code>)</strong>: Configured Next.js Edge Middleware using NextAuth's <code>withAuth</code> to enforce authentication across all dashboard routes and restrict <code>/admin/*</code> views exclusively to <code>Role.ADMIN</code>.</p>
 <hr />
-<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions</h2>
-<h3 id="issue-a-gemini-ai-output-parsing-resilient-error-handling">Issue A: Gemini AI Output Parsing &amp; Resilient Error Handling</h3>
-<h4 id="problem">Problem:</h4>
+<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions<a class="headerlink" href="#2-technical-challenges-ticket-resolutions" title="Permanent link">&para;</a></h2>
+<h3 id="issue-a-gemini-ai-output-parsing-resilient-error-handling">Issue A: Gemini AI Output Parsing &amp; Resilient Error Handling<a class="headerlink" href="#issue-a-gemini-ai-output-parsing-resilient-error-handling" title="Permanent link">&para;</a></h3>
+<h4 id="problem">Problem:<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h4>
 <p>When calling the Gemini generative model to moderate user posts, LLMs frequently format their structured responses within markdown code fences (e.g., <code>json { "flagged": true, "reason": "..." }</code>) or append conversational preamble. Attempting a direct <code>JSON.parse(responseText)</code> threw syntax errors:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SyntaxError: Unexpected token '`', "```json
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>{"... is not valid JSON
 </span></code></pre></div>
 Additionally, if network connectivity to Google AI Studio fails or the API key is not configured in local development, post creation could be completely blocked.</p>
-<h4 id="key-observation">Key Observation:</h4>
+<h4 id="key-observation">Key Observation:<a class="headerlink" href="#key-observation" title="Permanent link">&para;</a></h4>
 <p>The moderation pipeline must be non-blocking and resilient: it should extract the exact JSON object using pattern matching, and in the event of an upstream API outage or missing credentials, it should fail open with a descriptive warning rather than crash the user experience.</p>
-<h4 id="solution">Solution:</h4>
+<h4 id="solution">Solution:<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
 <p>Engineered <code>moderateContent()</code> in <code>src/lib/gemini.ts</code> with regex JSON extraction, strict system instruction prompts, and a graceful fallback:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">GoogleGenAI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@google/genai"</span><span class="p">;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -932,14 +932,14 @@ Additionally, if network connectivity to Google AI Studio fails or the API key i
 </span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <hr />
-<h3 id="issue-b-nextjs-edge-runtime-constraints-in-route-protection">Issue B: Next.js Edge Runtime Constraints in Route Protection</h3>
-<h4 id="problem_1">Problem:</h4>
+<h3 id="issue-b-nextjs-edge-runtime-constraints-in-route-protection">Issue B: Next.js Edge Runtime Constraints in Route Protection<a class="headerlink" href="#issue-b-nextjs-edge-runtime-constraints-in-route-protection" title="Permanent link">&para;</a></h3>
+<h4 id="problem_1">Problem:<a class="headerlink" href="#problem_1" title="Permanent link">&para;</a></h4>
 <p>Next.js route middleware executes on the lightweight V8 Edge Runtime. The Edge runtime does not include Node.js core modules (<code>crypto</code>, <code>stream</code>, <code>fs</code>) and cannot establish direct TCP database connections through Prisma ORM. When trying to perform database-level role lookups inside <code>middleware.ts</code>:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Error: A Node.js API is used which is not supported in the Edge Runtime: crypto
 </span></code></pre></div></p>
-<h4 id="key-observation_1">Key Observation:</h4>
+<h4 id="key-observation_1">Key Observation:<a class="headerlink" href="#key-observation_1" title="Permanent link">&para;</a></h4>
 <p>Authentication and role verification in middleware must rely entirely on cryptographic JWT session claims already verified by NextAuth, requiring zero database queries on incoming HTTP requests.</p>
-<h4 id="solution_1">Solution:</h4>
+<h4 id="solution_1">Solution:<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h4>
 <p>Configured <code>src/middleware.ts</code> with <code>withAuth</code> to extract user permissions directly from the encrypted JWT token at the edge:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">withAuth</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"next-auth/middleware"</span><span class="p">;</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"next/server"</span><span class="p">;</span>
@@ -981,10 +981,10 @@ Additionally, if network connectivity to Google AI Studio fails or the API key i
 </span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="p">};</span>
 </span></code></pre></div></p>
 <hr />
-<h3 id="issue-c-tailwind-css-class-specificity-conflicts-cn-utility">Issue C: Tailwind CSS Class Specificity Conflicts &amp; <code>cn()</code> Utility</h3>
-<h4 id="problem_2">Problem:</h4>
+<h3 id="issue-c-tailwind-css-class-specificity-conflicts-cn-utility">Issue C: Tailwind CSS Class Specificity Conflicts &amp; <code>cn()</code> Utility<a class="headerlink" href="#issue-c-tailwind-css-class-specificity-conflicts-cn-utility" title="Permanent link">&para;</a></h3>
+<h4 id="problem_2">Problem:<a class="headerlink" href="#problem_2" title="Permanent link">&para;</a></h4>
 <p>When building reusable UI primitives (e.g. <code>Button</code>, <code>Card</code>, <code>Badge</code>), passing conditional utility classes (such as <code>px-4 py-2</code> combined with a prop <code>px-6</code>) via string concatenation <code>className={</code>${defaultClasses} ${customClasses}<code>}</code> resulted in conflicting classes. In Tailwind CSS, specificity is determined by the stylesheet order rather than argument order, often rendering incorrect padding or background colors.</p>
-<h4 id="solution_2">Solution:</h4>
+<h4 id="solution_2">Solution:<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h4>
 <p>Implemented the canonical <code>cn()</code> helper in <code>src/lib/utils.ts</code> combining <code>clsx</code> (for conditional boolean maps) and <code>tailwind-merge</code> (for intelligent specificity resolution):
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">clsx</span><span class="p">,</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">ClassValue</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"clsx"</span><span class="p">;</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">twMerge</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"tailwind-merge"</span><span class="p">;</span>
@@ -1013,7 +1013,7 @@ Additionally, if network connectivity to Google AI Studio fails or the API key i
 </span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <hr />
-<h2 id="3-verification-results">3. Verification &amp; Results</h2>
+<h2 id="3-verification-results">3. Verification &amp; Results<a class="headerlink" href="#3-verification-results" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Gemini AI Moderation Verification:</strong>
    - Executed test scans against clean academic posts (<code>"Sharing the lecture notes for Computer Networks Chapter 4"</code>): Returned <code>flagged: false</code>.

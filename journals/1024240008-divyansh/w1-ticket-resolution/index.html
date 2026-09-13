@@ -76,7 +76,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -861,28 +861,28 @@
   
 
 
-<h1 id="week-1-core-architecture-nextauth-rbac-cloud-storage-integration">Week 1 : Core Architecture, NextAuth RBAC &amp; Cloud Storage Integration</h1>
+<h1 id="week-1-core-architecture-nextauth-rbac-cloud-storage-integration">Week 1 : Core Architecture, NextAuth RBAC &amp; Cloud Storage Integration<a class="headerlink" href="#week-1-core-architecture-nextauth-rbac-cloud-storage-integration" title="Permanent link">&para;</a></h1>
 <p><strong>Author:</strong> Divyansh Jasrotia (Roll No. 1024240008)<br />
 <strong>Project:</strong> CampusConnect — Closed-Community Academic &amp; Social Platform<br />
 <strong>Component:</strong> Phase 2 — Core Library Setup &amp; Authentication Subsystem  </p>
 <hr />
-<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks</h2>
+<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks<a class="headerlink" href="#1-overview-of-assigned-tasks" title="Permanent link">&para;</a></h2>
 <p>During this phase, I was responsible for implementing the foundational backend architecture and utility singletons required across the entire CampusConnect platform:
 1. <strong>Task 2.1 — Prisma Client Singleton (<code>src/lib/prisma.ts</code>)</strong>: Global database client management with connection pooling to prevent pool exhaustion in Next.js development.
 2. <strong>Task 2.2 — NextAuth Configuration (<code>src/lib/auth.ts</code>)</strong>: Role-Based Access Control (RBAC) authentication engine using Credentials Provider, bcrypt password verification, and suspended account blocking.
 3. <strong>Task 2.3 — TypeScript Type Extensions (<code>src/types/next-auth.d.ts</code>)</strong>: Declaration merging to strongly type NextAuth sessions and JWT tokens with user <code>id</code>, <code>role</code> (<code>ADMIN</code>, <code>TEACHER</code>, <code>STUDENT</code>), <code>department</code>, and <code>batch</code>.
 4. <strong>Task 2.4 — Cloudinary Media Helper (<code>src/lib/cloudinary.ts</code>)</strong>: Multi-format media upload service handling <code>File</code>, <code>Blob</code>, Node.js <code>Buffer</code>, and Base64 data URIs for profile avatars, post images, and course PDFs.</p>
 <hr />
-<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions</h2>
-<h3 id="issue-a-nextjs-hot-reloading-prisma-client-connection-pool-exhaustion">Issue A: Next.js Hot Reloading &amp; Prisma Client Connection Pool Exhaustion</h3>
-<h4 id="error-encountered">Error Encountered:</h4>
+<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions<a class="headerlink" href="#2-technical-challenges-ticket-resolutions" title="Permanent link">&para;</a></h2>
+<h3 id="issue-a-nextjs-hot-reloading-prisma-client-connection-pool-exhaustion">Issue A: Next.js Hot Reloading &amp; Prisma Client Connection Pool Exhaustion<a class="headerlink" href="#issue-a-nextjs-hot-reloading-prisma-client-connection-pool-exhaustion" title="Permanent link">&para;</a></h3>
+<h4 id="error-encountered">Error Encountered:<a class="headerlink" href="#error-encountered" title="Permanent link">&para;</a></h4>
 <p>During rapid iteration in Next.js App Router development mode (<code>next dev</code>), module reloading re-evaluated the Prisma client instantiation, spawning new database connections on every edit:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Error: Can't reach database server at `ep-rapid-pool.ap-southeast-1.aws.neon.tech:5432`
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>PrismaClientInitializationError: Connection pool limit exceeded.
 </span></code></pre></div></p>
-<h4 id="key-observation">Key Observation:</h4>
+<h4 id="key-observation">Key Observation:<a class="headerlink" href="#key-observation" title="Permanent link">&para;</a></h4>
 <p>In development, Node.js clears the <code>require</code>/<code>import</code> cache on hot reload, creating fresh instances of <code>PrismaClient</code>. Since serverless PostgreSQL (Neon) has finite connection pool limits, persistent connections from previous reloads stayed open until timeout.</p>
-<h4 id="solution">Solution:</h4>
+<h4 id="solution">Solution:<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
 <p>Attached the <code>PrismaClient</code> instance to the <code>globalThis</code> object in development to ensure a strict singleton pattern:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PrismaClient</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@prisma/client"</span><span class="p">;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -897,15 +897,15 @@
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"production"</span><span class="p">)</span><span class="w"> </span><span class="nx">globalForPrisma</span><span class="p">.</span><span class="nx">prisma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">prisma</span><span class="p">;</span>
 </span></code></pre></div></p>
 <hr />
-<h3 id="issue-b-typescript-type-incompatibility-in-nextauth-rbac-callbacks">Issue B: TypeScript Type Incompatibility in NextAuth RBAC Callbacks</h3>
-<h4 id="error-encountered_1">Error Encountered:</h4>
+<h3 id="issue-b-typescript-type-incompatibility-in-nextauth-rbac-callbacks">Issue B: TypeScript Type Incompatibility in NextAuth RBAC Callbacks<a class="headerlink" href="#issue-b-typescript-type-incompatibility-in-nextauth-rbac-callbacks" title="Permanent link">&para;</a></h3>
+<h4 id="error-encountered_1">Error Encountered:<a class="headerlink" href="#error-encountered_1" title="Permanent link">&para;</a></h4>
 <p>By default, NextAuth's <code>Session</code> and <code>JWT</code> types only permit generic fields (<code>name</code>, <code>email</code>, <code>image</code>). When attempting to attach institutional role and department metadata from Prisma in <code>jwt()</code> and <code>session()</code> callbacks:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Property 'role' does not exist on type 'User'.
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Type '{ name: string; email: string; role: Role; }' is not assignable to type 'Session'.
 </span></code></pre></div></p>
-<h4 id="key-observation_1">Key Observation:</h4>
+<h4 id="key-observation_1">Key Observation:<a class="headerlink" href="#key-observation_1" title="Permanent link">&para;</a></h4>
 <p>NextAuth relies on TypeScript module declaration merging. Without explicit ambient interface extensions, TypeScript rejects custom properties during compilation, breaking strict typing in protected routes and middleware.</p>
-<h4 id="solution_1">Solution:</h4>
+<h4 id="solution_1">Solution:<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h4>
 <p>Authored <a href="../../code/src/types/next-auth.d.ts"><code>src/types/next-auth.d.ts</code></a> to augment <code>next-auth</code> and <code>next-auth/jwt</code>:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Role</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@prisma/client"</span><span class="p">;</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="s2">"next-auth"</span><span class="p">;</span>
@@ -961,10 +961,10 @@ This enabled seamless propagation in <code>src/lib/auth.ts</code>:
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <hr />
-<h3 id="issue-c-multi-payload-media-upload-support-in-cloudinary-helper">Issue C: Multi-Payload Media Upload Support in Cloudinary Helper</h3>
-<h4 id="problem">Problem:</h4>
+<h3 id="issue-c-multi-payload-media-upload-support-in-cloudinary-helper">Issue C: Multi-Payload Media Upload Support in Cloudinary Helper<a class="headerlink" href="#issue-c-multi-payload-media-upload-support-in-cloudinary-helper" title="Permanent link">&para;</a></h3>
+<h4 id="problem">Problem:<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h4>
 <p>Next.js handles file uploads differently across boundaries: Web standard <code>File</code>/<code>Blob</code> objects from <code>FormData</code>, Node.js <code>Buffer</code> objects in backend route handlers, and Base64 strings from client-side profile photo croppers. A rigid upload function resulted in type errors and payload serialization issues.</p>
-<h4 id="solution_2">Solution:</h4>
+<h4 id="solution_2">Solution:<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h4>
 <p>Engineered <code>uploadFile()</code> in <code>src/lib/cloudinary.ts</code> to normalize all incoming data representations into a standard stream:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">uploadFile</span><span class="p">(</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nx">file</span><span class="o">:</span><span class="w"> </span><span class="kt">File</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Blob</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Buffer</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">ArrayBuffer</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
@@ -988,7 +988,7 @@ This enabled seamless propagation in <code>src/lib/auth.ts</code>:
 </span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <hr />
-<h2 id="3-verification-results">3. Verification &amp; Results</h2>
+<h2 id="3-verification-results">3. Verification &amp; Results<a class="headerlink" href="#3-verification-results" title="Permanent link">&para;</a></h2>
 <p>To ensure stability before proceeding to Phase 3, I authored and executed comprehensive end-to-end verification scripts (<code>scripts/verify-all.ts</code> and <code>scripts/verify-phase2-tasks.ts</code>):</p>
 <ol>
 <li><strong>Database &amp; Connection Pooling:</strong>

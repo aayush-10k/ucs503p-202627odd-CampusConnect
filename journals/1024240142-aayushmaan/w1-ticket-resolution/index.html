@@ -74,7 +74,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="orange">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -859,28 +859,28 @@
   
 
 
-<h1 id="week-1-project-architecture-scaffold-relational-schema-database-seeding">Week 1 : Project Architecture Scaffold, Relational Schema &amp; Database Seeding</h1>
+<h1 id="week-1-project-architecture-scaffold-relational-schema-database-seeding">Week 1 : Project Architecture Scaffold, Relational Schema &amp; Database Seeding<a class="headerlink" href="#week-1-project-architecture-scaffold-relational-schema-database-seeding" title="Permanent link">&para;</a></h1>
 <p><strong>Author:</strong> Aayushmaan Singh Meyan (Roll No. 1024240142)<br />
 <strong>Project:</strong> CampusConnect — Closed-Community Academic &amp; Social Platform<br />
 <strong>Component:</strong> Phase 0 (Project Scaffold) &amp; Phase 1 (Database Schema &amp; Relational Modeling)  </p>
 <hr />
-<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks</h2>
+<h2 id="1-overview-of-assigned-tasks">1. Overview of Assigned Tasks<a class="headerlink" href="#1-overview-of-assigned-tasks" title="Permanent link">&para;</a></h2>
 <p>During this initial foundation phase, I served as the team lead and was responsible for bootstrapping the complete codebase architecture and engineering the institutional relational data model:
 1. <strong>Task 0.1 to 0.7 — Project Scaffold</strong>: Initialized Next.js 14+ with App Router, TypeScript, Tailwind CSS, and path alias <code>@/*</code>. Installed core ecosystem libraries (Prisma ORM, NextAuth.js, bcryptjs, Socket.io, Cloudinary SDK, Google Gemini AI SDK, Radix UI primitives). Configured <code>next.config.ts</code>, <code>.env.example</code>, automated development <code>Makefile</code>, and the global design token system in <code>src/app/globals.css</code>.
 2. <strong>Task 1.1 — Prisma Relational Data Schema (<code>prisma/schema.prisma</code>)</strong>: Engineered the end-to-end database schema comprising 14 relational models and 7 domain enums modeling user roles, academic groups, course materials, schedule events, real-time messaging, and AI moderation flags.
 3. <strong>Task 1.2 — Cloud Database Migration</strong>: Applied initial database migration (<code>20260906145538_init</code>) against our Neon Serverless PostgreSQL instance and generated the type-safe Prisma Client.
 4. <strong>Task 1.3 — Database Seeding Engine (<code>prisma/seed.ts</code>)</strong>: Built an automated seed pipeline creating verified test personas across all 3 institution roles (Admin, Teacher, Student), default academic batch groups, and interactive initial feed activity.</p>
 <hr />
-<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions</h2>
-<h3 id="issue-a-prisma-7-configuration-driver-adapter-setup-in-nextjs">Issue A: Prisma 7 Configuration &amp; Driver Adapter Setup in Next.js</h3>
-<h4 id="problem">Problem:</h4>
+<h2 id="2-technical-challenges-ticket-resolutions">2. Technical Challenges &amp; Ticket Resolutions<a class="headerlink" href="#2-technical-challenges-ticket-resolutions" title="Permanent link">&para;</a></h2>
+<h3 id="issue-a-prisma-7-configuration-driver-adapter-setup-in-nextjs">Issue A: Prisma 7 Configuration &amp; Driver Adapter Setup in Next.js<a class="headerlink" href="#issue-a-prisma-7-configuration-driver-adapter-setup-in-nextjs" title="Permanent link">&para;</a></h3>
+<h4 id="problem">Problem:<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h4>
 <p>In Prisma 7, defining direct connection URLs inside <code>datasource db</code> in <code>schema.prisma</code> is deprecated in favor of external configuration objects:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>PrismaConfigError: `datasource.url` is deprecated. Use `defineConfig` in `prisma.config.ts` with a driver adapter.
 </span></code></pre></div>
 Additionally, Next.js with Turbopack requires explicit driver adapter resolution when targeting PostgreSQL pools on Neon Cloud.</p>
-<h4 id="key-observation">Key Observation:</h4>
+<h4 id="key-observation">Key Observation:<a class="headerlink" href="#key-observation" title="Permanent link">&para;</a></h4>
 <p>Prisma 7 decouples database connectivity from the schema declaration to allow dynamic connection pooling and edge-compatible driver adapters via <code>@prisma/adapter-pg</code>.</p>
-<h4 id="solution">Solution:</h4>
+<h4 id="solution">Solution:<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
 <p>Created <code>code/prisma.config.ts</code> using <code>defineConfig</code> and configured <code>prisma/schema.prisma</code> to work cleanly with the connection adapter:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="s2">"dotenv/config"</span><span class="p">;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">env</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"prisma/config"</span><span class="p">;</span>
@@ -897,14 +897,14 @@ Additionally, Next.js with Turbopack requires explicit driver adapter resolution
 </span></code></pre></div>
 This enabled seamless migration execution via <code>npx prisma migrate dev --name init</code> and instant type-safe schema synchronization.</p>
 <hr />
-<h3 id="issue-b-relational-dependency-order-foreign-key-constraints-in-seeding">Issue B: Relational Dependency Order &amp; Foreign Key Constraints in Seeding</h3>
-<h4 id="problem_1">Problem:</h4>
+<h3 id="issue-b-relational-dependency-order-foreign-key-constraints-in-seeding">Issue B: Relational Dependency Order &amp; Foreign Key Constraints in Seeding<a class="headerlink" href="#issue-b-relational-dependency-order-foreign-key-constraints-in-seeding" title="Permanent link">&para;</a></h3>
+<h4 id="problem_1">Problem:<a class="headerlink" href="#problem_1" title="Permanent link">&para;</a></h4>
 <p>The CampusConnect schema has extensive relational integrity constraints (e.g., <code>GroupMember</code> requires both valid <code>User</code> and <code>Group</code> IDs; <code>Post</code> can belong to an optional <code>Group</code> and required <code>User</code>; <code>Comment</code> and <code>Like</code> depend on both <code>User</code> and <code>Post</code>). A linear seed script caused relational foreign key constraint violations:
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PrismaClientKnownRequestError: Foreign key constraint failed on the field: `GroupMember_groupId_fkey (index)`
 </span></code></pre></div></p>
-<h4 id="key-observation_1">Key Observation:</h4>
+<h4 id="key-observation_1">Key Observation:<a class="headerlink" href="#key-observation_1" title="Permanent link">&para;</a></h4>
 <p>Relational entities must be created according to topological dependency order, and password hashing must be resolved asynchronously before user insertion to ensure instant login capability in development.</p>
-<h4 id="solution_1">Solution:</h4>
+<h4 id="solution_1">Solution:<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h4>
 <p>Engineered <code>prisma/seed.ts</code> with deterministic staged execution using <code>upsert</code> queries to prevent duplicate key collisions:
 <div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PrismaClient</span><span class="p">,</span><span class="w"> </span><span class="nx">Role</span><span class="p">,</span><span class="w"> </span><span class="nx">GroupType</span><span class="p">,</span><span class="w"> </span><span class="nx">GroupMemberRole</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@prisma/client"</span><span class="p">;</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PrismaPg</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"@prisma/adapter-pg"</span><span class="p">;</span>
@@ -954,17 +954,17 @@ This enabled seamless migration execution via <code>npx prisma migrate dev --nam
 </span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <hr />
-<h3 id="issue-c-design-token-system-architecture-typography">Issue C: Design Token System Architecture &amp; Typography</h3>
-<h4 id="problem_2">Problem:</h4>
+<h3 id="issue-c-design-token-system-architecture-typography">Issue C: Design Token System Architecture &amp; Typography<a class="headerlink" href="#issue-c-design-token-system-architecture-typography" title="Permanent link">&para;</a></h3>
+<h4 id="problem_2">Problem:<a class="headerlink" href="#problem_2" title="Permanent link">&para;</a></h4>
 <p>To build a high-grade institution platform, ad-hoc utility classes across components would lead to inconsistent visual hierarchy, inaccessible color contrasts, and fractured theme modes.</p>
-<h4 id="solution_2">Solution:</h4>
+<h4 id="solution_2">Solution:<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h4>
 <p>Established the CampusConnect Design System (<code>design-system/campusconnect/MASTER.md</code>) and encoded CSS custom properties in <code>src/app/globals.css</code>:
 - <strong>Primary:</strong> Rose Crimson (<code>#E11D48</code>) for primary actions and active states.
 - <strong>Accent:</strong> Royal Blue (<code>#2563EB</code>) for academic contexts and verified badges.
 - <strong>Typography:</strong> Google Fonts pairing of <strong>Nunito</strong> (approachable, clear headings) and <strong>DM Sans</strong> (highly legible interface body text).
 - Defined standard surface, border, and semantic role colors (Admin: <code>#7C3AED</code>, Teacher: <code>#2563EB</code>, Student: <code>#059669</code>).</p>
 <hr />
-<h2 id="3-verification-results">3. Verification &amp; Results</h2>
+<h2 id="3-verification-results">3. Verification &amp; Results<a class="headerlink" href="#3-verification-results" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Database Schema Validation:</strong>
    - Applied migration <code>20260906145538_init</code> to Neon Cloud PostgreSQL without schema drifts.
