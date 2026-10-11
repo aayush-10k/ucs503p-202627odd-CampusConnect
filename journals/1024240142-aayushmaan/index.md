@@ -5,4 +5,5 @@ Name: Aayushmaan Singh Meyan
 
 +  [W1 : Project Architecture Scaffold, Relational Schema & Database Seeding](./w1-ticket-resolution.md)
 +  [W2 : Phase 3 — Authentication Subsystem, User Registration & Invite Token Engine (10-09-2026 – 11-09-2026)](./w2-ticket-resolution.md)
++  [W3 : Phase 6 — Academic Schedule Board, Calendar System & Event Notification Dispatch (04-10-2026 – 06-10-2026)](./w3-ticket-resolution.md)
 +  […]
