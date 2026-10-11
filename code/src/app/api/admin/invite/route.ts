@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
 
 // ─── GET /api/admin/invite — list all invite links ───────────────────────────
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await getServerAuthSession();
 
   if (!session?.user) {

@@ -336,3 +336,13 @@ model ModerationReport {
   post     Post @relation(fields: [postId],     references: [id], onDelete: Cascade)
   reporter User @relation(fields: [reporterId], references: [id])
 }
+
+model SystemSetting {
+  id                  String   @id @default("default")
+  joinPolicy          String   @default("OPEN")
+  allowedDomains      String   @default("campus.edu,thapar.edu")
+  aiModerationEnabled Boolean  @default(true)
+  aiSensitivity       String   @default("MODERATE")
+  updatedAt           DateTime @updatedAt
+}
+

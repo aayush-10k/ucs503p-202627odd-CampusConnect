@@ -248,6 +248,14 @@ export default function GroupDetailsPage({
           </Link>
 
           <Link
+            href={`/groups/${groupId}/schedule`}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            <Calendar className="w-4 h-4" />
+            Schedule
+          </Link>
+
+          <Link
             href={`/groups/${groupId}/members`}
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
