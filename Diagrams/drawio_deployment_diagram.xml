@@ -1,0 +1,131 @@
+<mxfile host="app.diagrams.net" modified="2026-10-31T02:21:00.000Z" agent="CampusConnect" version="24.0.0">
+  <diagram id="campusconnect-deployment-diagram" name="CampusConnect Deployment Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1260" pageHeight="720" background="#F8FAFC" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="depTitle" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;CampusConnect — UML Deployment Diagram&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot;&gt;Physical Nodes, Execution Environments, Artifacts, Cloud Engines &amp; Network Protocols&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="20" width="800" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- NODE 1: User Client Machine -->
+        <mxCell id="nodeClient" value="&amp;laquo;device&amp;raquo;&#xa;&lt;b&gt;User Client Machine&lt;/b&gt;&#xa;(Desktop / Laptop / Mobile)" style="verticalAlign=top;align=center;spacingTop=6;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=2;shape=cube;size=12;direction=south;fontStyle=0;html=1;whiteSpace=wrap;shadow=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="95" width="310" height="340" as="geometry" />
+        </mxCell>
+
+        <mxCell id="envBrowser" value="&amp;laquo;execution environment&amp;raquo;&#xa;&lt;b&gt;Modern Web Browser&lt;/b&gt;&#xa;(Chromium / WebKit / Gecko)" style="shape=module;align=left;spacingLeft=15;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;rounded=1;fontSize=10;" vertex="1" parent="nodeClient">
+          <mxGeometry x="20" y="45" width="270" height="275" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artNextClient" value="&amp;laquo;artifact&amp;raquo;&lt;br&gt;&lt;b&gt;Next.js Client Bundle&lt;/b&gt;&lt;br&gt;(React 19 SPA, Tailwind CSS v4)" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1D4ED8;fontSize=10;" vertex="1" parent="envBrowser">
+          <mxGeometry x="15" y="45" width="240" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artSocketClient" value="&amp;laquo;artifact&amp;raquo;&lt;br&gt;&lt;b&gt;Socket.io Client Runtime&lt;/b&gt;&lt;br&gt;(WSS Event Dispatcher)" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1D4ED8;fontSize=10;" vertex="1" parent="envBrowser">
+          <mxGeometry x="15" y="95" width="240" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artPdfViewer" value="&amp;laquo;artifact&amp;raquo;&lt;br&gt;&lt;b&gt;In-Browser PDF Viewer&lt;/b&gt;&lt;br&gt;(Syllabus &amp; Slide Canvas)" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1D4ED8;fontSize=10;" vertex="1" parent="envBrowser">
+          <mxGeometry x="15" y="145" width="240" height="42" as="geometry" />
+        </mxCell>
+
+        <!-- NODE 2: Application Server -->
+        <mxCell id="nodeAppServer" value="&amp;laquo;device&amp;raquo;&#xa;&lt;b&gt;Application Server Node&lt;/b&gt;&#xa;(Linux Host / Container, Node.js 20+)" style="verticalAlign=top;align=center;spacingTop=6;fillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=2;shape=cube;size=12;direction=south;fontStyle=0;html=1;whiteSpace=wrap;shadow=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="95" width="440" height="450" as="geometry" />
+        </mxCell>
+
+        <mxCell id="envNextServer" value="&amp;laquo;execution environment&amp;raquo;&#xa;&lt;b&gt;Next.js 16 Runtime &amp; Custom HTTP Server (server.ts)&lt;/b&gt;" style="shape=module;align=left;spacingLeft=15;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;rounded=1;fontSize=10;" vertex="1" parent="nodeAppServer">
+          <mxGeometry x="25" y="45" width="390" height="385" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artSSR" value="&amp;laquo;process&amp;raquo;&lt;br&gt;&lt;b&gt;Next.js App Router (SSR &amp; API Routes)&lt;/b&gt;&lt;br&gt;Handles /api/posts, /api/groups, /api/admin/*" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6D28D9;fontSize=10;" vertex="1" parent="envNextServer">
+          <mxGeometry x="20" y="45" width="350" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artAuth" value="&amp;laquo;process&amp;raquo;&lt;br&gt;&lt;b&gt;NextAuth.js Authentication Engine&lt;/b&gt;&lt;br&gt;JWT Verification, bcryptjs &amp; Edge Guard" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6D28D9;fontSize=10;" vertex="1" parent="envNextServer">
+          <mxGeometry x="20" y="95" width="350" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artSocketServer" value="&amp;laquo;process&amp;raquo;&lt;br&gt;&lt;b&gt;Socket.io WebSocket Server (Port 3000)&lt;/b&gt;&lt;br&gt;Room Manager (`user:*`, `chat:*`) &amp; Relay" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6D28D9;fontSize=10;" vertex="1" parent="envNextServer">
+          <mxGeometry x="20" y="145" width="350" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artGeminiService" value="&amp;laquo;artifact&amp;raquo;&lt;br&gt;&lt;b&gt;Gemini Moderation Service (src/lib/gemini.ts)&lt;/b&gt;&lt;br&gt;Multi-Tier Safety Scanner &amp; Rule Engine" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6D28D9;fontSize=10;" vertex="1" parent="envNextServer">
+          <mxGeometry x="20" y="195" width="350" height="42" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artPrisma" value="&amp;laquo;artifact&amp;raquo;&lt;br&gt;&lt;b&gt;Prisma 7 Client &amp; PG Driver Adapter&lt;/b&gt;&lt;br&gt;Connection Pooling, Type-Safe SQL Generation" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6D28D9;fontSize=10;" vertex="1" parent="envNextServer">
+          <mxGeometry x="20" y="245" width="350" height="42" as="geometry" />
+        </mxCell>
+
+        <!-- NODE 3: Cloud Database & External Services -->
+        <mxCell id="nodeDB" value="&amp;laquo;device&amp;raquo;&#xa;&lt;b&gt;Neon Cloud PostgreSQL Server&lt;/b&gt;&#xa;(Region: ap-southeast-1, Pooled)" style="verticalAlign=top;align=center;spacingTop=6;fillColor=#ECFDF5;strokeColor=#10B981;strokeWidth=2;shape=cube;size=12;direction=south;fontStyle=0;html=1;whiteSpace=wrap;shadow=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="850" y="95" width="360" height="210" as="geometry" />
+        </mxCell>
+
+        <mxCell id="envPostgres" value="&amp;laquo;execution environment&amp;raquo;&#xa;&lt;b&gt;PostgreSQL 16 Engine &amp; pgBouncer&lt;/b&gt;" style="shape=module;align=left;spacingLeft=15;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;rounded=1;fontSize=10;" vertex="1" parent="nodeDB">
+          <mxGeometry x="20" y="45" width="320" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artDatabase" value="&amp;laquo;database&amp;raquo;&lt;br&gt;&lt;b&gt;CampusConnect Relational Schema&lt;/b&gt;&lt;br&gt;14 Tables: Users, Posts, Groups, Materials, Events" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#FFFFFF;strokeColor=#047857;fontSize=10;" vertex="1" parent="envPostgres">
+          <mxGeometry x="20" y="45" width="280" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- External Gemini Node -->
+        <mxCell id="nodeGemini" value="&amp;laquo;cloud system&amp;raquo;&#xa;&lt;b&gt;Google Cloud / Vertex AI&lt;/b&gt;" style="verticalAlign=top;align=center;spacingTop=6;fillColor=#FEF2F2;strokeColor=#EF4444;strokeWidth=2;shape=cube;size=12;direction=south;fontStyle=0;html=1;whiteSpace=wrap;shadow=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="850" y="325" width="360" height="105" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artGeminiAPI" value="&amp;laquo;service&amp;raquo;&lt;br&gt;&lt;b&gt;Google Gemini 2.5 Flash API&lt;/b&gt;&lt;br&gt;Agentic Multi-Class Toxicity &amp; Policy Classifier" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B91C1C;fontSize=10;" vertex="1" parent="nodeGemini">
+          <mxGeometry x="25" y="45" width="310" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- External Cloudinary Node -->
+        <mxCell id="nodeCloudinary" value="&amp;laquo;cloud system&amp;raquo;&#xa;&lt;b&gt;Cloudinary Cloud Infrastructure&lt;/b&gt;" style="verticalAlign=top;align=center;spacingTop=6;fillColor=#FFFBEB;strokeColor=#F59E0B;strokeWidth=2;shape=cube;size=12;direction=south;fontStyle=0;html=1;whiteSpace=wrap;shadow=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="850" y="450" width="360" height="105" as="geometry" />
+        </mxCell>
+
+        <mxCell id="artCloudinaryAPI" value="&amp;laquo;service&amp;raquo;&lt;br&gt;&lt;b&gt;Cloudinary Global CDN &amp; Storage&lt;/b&gt;&lt;br&gt;Secure Asset Storage for PDFs, Avatars &amp; Media" style="shape=component;align=center;verticalAlign=middle;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B45309;fontSize=10;" vertex="1" parent="nodeCloudinary">
+          <mxGeometry x="25" y="45" width="310" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Network Connections -->
+        <!-- Client to App Server: HTTPS -->
+        <mxCell id="netClientAppHTTP" value="&amp;laquo;protocol&amp;raquo;&lt;br&gt;&lt;b&gt;HTTPS / TLS 1.3&lt;/b&gt;&lt;br&gt;(Port 443)" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1.5;strokeColor=#1E40AF;fontSize=9;" edge="1" parent="1" source="nodeClient" target="nodeAppServer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="365" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Client to App Server: WSS -->
+        <mxCell id="netClientAppWSS" value="&amp;laquo;protocol&amp;raquo;&lt;br&gt;&lt;b&gt;WSS (WebSockets)&lt;/b&gt;" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1.5;strokeColor=#4338CA;dashed=1;fontSize=9;" edge="1" parent="1" source="nodeClient" target="nodeAppServer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="365" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- App Server to Neon Postgres -->
+        <mxCell id="netAppDB" value="&amp;laquo;protocol&amp;raquo;&lt;br&gt;&lt;b&gt;PostgreSQL over SSL&lt;/b&gt;&lt;br&gt;(Port 5432)" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1.5;strokeColor=#047857;fontSize=9;" edge="1" parent="1" source="nodeAppServer" target="nodeDB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- App Server to Gemini -->
+        <mxCell id="netAppGemini" value="&amp;laquo;protocol&amp;raquo;&lt;br&gt;&lt;b&gt;HTTPS REST API&lt;/b&gt;" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1.5;strokeColor=#B91C1C;fontSize=9;" edge="1" parent="1" source="nodeAppServer" target="nodeGemini">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- App Server to Cloudinary -->
+        <mxCell id="netAppCloudinary" value="&amp;laquo;protocol&amp;raquo;&lt;br&gt;&lt;b&gt;HTTPS Signed Upload&lt;/b&gt;" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1.5;strokeColor=#B45309;fontSize=9;" edge="1" parent="1" source="nodeAppServer" target="nodeCloudinary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
