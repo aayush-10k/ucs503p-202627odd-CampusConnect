@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { moderateContent } from "@/lib/gemini";
+import { moderateContent, ModerationSensitivity } from "@/lib/gemini";
 
 export async function GET(
   req: NextRequest,
@@ -64,19 +64,29 @@ export async function POST(
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    // AI content moderation check on comment
-    try {
-      const moderation = await moderateContent(content, "MODERATE");
-      if (moderation.flagged) {
-        return NextResponse.json(
-          {
-            error: `Comment blocked by safety rules: ${moderation.reason || "Content violates community policy"}`,
-          },
-          { status: 400 }
-        );
+    // Read platform AI moderation settings
+    const systemSetting = await prisma.systemSetting.findUnique({
+      where: { id: "default" },
+    });
+
+    const isAiEnabled = systemSetting ? systemSetting.aiModerationEnabled : true;
+    const sensitivity = (systemSetting?.aiSensitivity as ModerationSensitivity) || "MODERATE";
+
+    // AI content moderation check on comment if enabled
+    if (isAiEnabled) {
+      try {
+        const moderation = await moderateContent(content, sensitivity);
+        if (moderation.flagged) {
+          return NextResponse.json(
+            {
+              error: `Comment blocked by safety rules: ${moderation.reason || "Content violates community policy"}`,
+            },
+            { status: 400 }
+          );
+        }
+      } catch (modErr) {
+        console.warn("[Comments API] Moderation fallback:", modErr);
       }
-    } catch (modErr) {
-      console.warn("[Comments API] Moderation fallback:", modErr);
     }
 
     const comment = await prisma.comment.create({

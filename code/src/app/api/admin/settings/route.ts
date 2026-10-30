@@ -21,19 +21,40 @@ export async function GET() {
   }
 
   try {
-    const settings = await prisma.systemSetting.upsert({
-      where: { id: "default" },
-      update: {},
-      create: {
-        id: "default",
-        joinPolicy: "OPEN",
-        allowedDomains: "campus.edu,thapar.edu",
-        aiModerationEnabled: true,
-        aiSensitivity: "MODERATE",
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const [settings, dailyFlaggedCount, totalFlaggedCount] = await Promise.all([
+      prisma.systemSetting.upsert({
+        where: { id: "default" },
+        update: {},
+        create: {
+          id: "default",
+          joinPolicy: "OPEN",
+          allowedDomains: "campus.edu,thapar.edu",
+          aiModerationEnabled: true,
+          aiSensitivity: "MODERATE",
+        },
+      }),
+      prisma.post.count({
+        where: {
+          isFlagged: true,
+          createdAt: { gte: oneDayAgo },
+        },
+      }),
+      prisma.post.count({
+        where: {
+          isFlagged: true,
+        },
+      }),
+    ]);
+
+    return NextResponse.json({
+      settings,
+      stats: {
+        dailyFlaggedCount,
+        totalFlaggedCount,
       },
     });
-
-    return NextResponse.json({ settings });
   } catch (error: unknown) {
     console.error("Error fetching system settings:", error);
     return NextResponse.json({ message: "Failed to fetch settings" }, { status: 500 });

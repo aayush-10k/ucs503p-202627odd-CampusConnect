@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { moderateContent } from "@/lib/gemini";
+import { moderateContent, ModerationSensitivity } from "@/lib/gemini";
 
 export async function GET(req: NextRequest) {
   try {
@@ -126,14 +126,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Run AI content moderation on text
+    // Read platform AI moderation settings
+    const systemSetting = await prisma.systemSetting.findUnique({
+      where: { id: "default" },
+    });
+
+    const isAiEnabled = systemSetting ? systemSetting.aiModerationEnabled : true;
+    const sensitivity = (systemSetting?.aiSensitivity as ModerationSensitivity) || "MODERATE";
+
+    // Run AI content moderation on text if enabled
     let isFlagged = false;
     let flagReason: string | null = null;
     let isHidden = false;
 
-    if (content && content.trim().length > 0) {
+    if (isAiEnabled && content && content.trim().length > 0) {
       try {
-        const moderationResult = await moderateContent(content, "MODERATE");
+        const moderationResult = await moderateContent(content, sensitivity);
         if (moderationResult.flagged) {
           isFlagged = true;
           flagReason = moderationResult.reason || "Violates community guidelines";
@@ -175,7 +183,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // If flagged, create ModerationReport for admin queue
+    // If flagged, create ModerationReport for admin queue and notify all platform admins
     if (isFlagged) {
       await prisma.moderationReport.create({
         data: {
@@ -187,6 +195,27 @@ export async function POST(req: NextRequest) {
           status: "PENDING",
         },
       });
+
+      // Dispatch in-app notification to all platform administrators
+      try {
+        const admins = await prisma.user.findMany({
+          where: { role: "ADMIN" },
+          select: { id: true },
+        });
+
+        if (admins.length > 0) {
+          await prisma.notification.createMany({
+            data: admins.map((adm) => ({
+              userId: adm.id,
+              type: "MODERATION_FLAG",
+              message: `AI Safety Agent flagged a post by ${post.author.name || "a user"} for: ${flagReason}`,
+              link: "/admin/moderation",
+            })),
+          });
+        }
+      } catch (notifErr) {
+        console.warn("[Posts API] Failed to dispatch admin notifications:", notifErr);
+      }
 
       return NextResponse.json(
         {
