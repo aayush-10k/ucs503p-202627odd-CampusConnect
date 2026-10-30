@@ -119,10 +119,18 @@ September 2026
 % =====================================================
 % FRONT MATTER
 % =====================================================
+\pagenumbering{roman}
+\begingroup
+\setlength{\parskip}{0pt}
+\linespread{0.95}\selectfont
 \tableofcontents
+\endgroup
+\clearpage
 \listoffigures
+\clearpage
 \listoftables
 \clearpage
+\pagenumbering{arabic}
 
 % =====================================================
 % CHAPTER 1 -- INTRODUCTION
@@ -226,39 +234,49 @@ CampusConnect employs a decoupled, enterprise-grade \textbf{Three-Tier Architect
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[node distance=0.5cm]
-\node[flowbox=bluebox, text width=11cm, minimum height=1.3cm] (pres)
-  {\textbf{Presentation Layer: Responsive Client Portal}\\
+\begin{tikzpicture}[>=Stealth]
+% Tier 1: Presentation Layer
+\node[flowbox=bluebox, text width=12cm, minimum height=1.2cm] (pres) at (0, 0)
+  {\textbf{Presentation Layer: Responsive Client Portal}\\[2pt]
    \footnotesize Next.js 14 App Router $\bullet$ React 18 $\bullet$ Tailwind CSS Design Tokens $\bullet$ Lucide Icons};
 
-\node[flowbox=redbox, text width=11cm, minimum height=1.3cm, below=of pres] (edge)
-  {\textbf{Edge Routing \& Security Gateway}\\
+% Tier 2: Edge Routing & Security Gateway
+\node[flowbox=redbox, text width=12cm, minimum height=1.2cm] (edge) at (0, -1.8)
+  {\textbf{Edge Routing \& Security Gateway}\\[2pt]
    \footnotesize Next.js Middleware (\texttt{src/middleware.ts}) $\bullet$ NextAuth Session JWT Guard $\bullet$ RBAC Interceptor};
 
-\node[flowbox=tealbox, text width=3.4cm, minimum height=1.6cm, below=1.2cm of edge, xshift=-3.9cm] (auth)
-  {\textbf{Auth \& Profile Service}\\ \footnotesize Bcrypt Hashing $\bullet$ Tokens $\bullet$ Profiles};
-\node[flowbox=pinkbox, text width=3.4cm, minimum height=1.6cm, right=0.4cm of auth] (social)
-  {\textbf{Social \& Groups Engine}\\ \footnotesize Feed $\bullet$ Friends $\bullet$ Groups $\bullet$ Materials};
-\node[flowbox=orangebox, text width=3.4cm, minimum height=1.6cm, right=0.4cm of social] (ai)
-  {\textbf{Agentic AI Safety Engine}\\ \footnotesize Gemini 2.5 Flash $\bullet$ Regex Rules};
+% Service Modules (Symmetrically spaced, zero overlap)
+\node[flowbox=tealbox, text width=3.4cm, minimum height=1.5cm] (auth) at (-4.1, -3.9)
+  {\textbf{Auth \& Profile Service}\\[2pt] \footnotesize Bcrypt Hashing $\bullet$ Tokens $\bullet$ Profiles};
 
-\node[flowbox=purplebox, text width=11cm, minimum height=1.3cm, below=1.2cm of social] (rtc)
-  {\textbf{Real-Time Communication Bridge (Socket.io)}\\
-   \footnotesize WebSockets Server $\bullet$ Peer-to-Peer Direct Chat $\bullet$ Group Notification Broadcasts};
+\node[flowbox=pinkbox, text width=3.4cm, minimum height=1.5cm] (social) at (0, -3.9)
+  {\textbf{Social \& Groups Engine}\\[2pt] \footnotesize Feed $\bullet$ Friends $\bullet$ Groups $\bullet$ Materials};
 
-\node[flowbox=greenbox, text width=11cm, minimum height=1.3cm, below=of rtc] (persist)
-  {\textbf{Persistence \& Cloud Storage Layer}\\
+\node[flowbox=orangebox, text width=3.4cm, minimum height=1.5cm] (ai) at (4.1, -3.9)
+  {\textbf{Agentic AI Safety Engine}\\[2pt] \footnotesize Gemini 2.5 Flash $\bullet$ Regex Rules};
+
+% RTC Bridge (Socket.io) - Centered below Social Engine
+\node[flowbox=purplebox, text width=6.2cm, minimum height=1.3cm] (rtc) at (0, -6.0)
+  {\textbf{Real-Time Communication Bridge (Socket.io)}\\[2pt]
+   \footnotesize WebSockets Server $\bullet$ Peer-to-Peer Direct Chat $\bullet$ Group Notifications};
+
+% Tier 3: Persistence Layer
+\node[flowbox=greenbox, text width=12cm, minimum height=1.2cm] (persist) at (0, -8.1)
+  {\textbf{Persistence \& Cloud Storage Layer}\\[2pt]
    \footnotesize Neon Cloud PostgreSQL (16 Models, 7 Enums) $\bullet$ Prisma 7 ORM $\bullet$ Cloudinary Asset Bucket};
 
-\node[left=0.3cm of rtc, text width=2.2cm, font=\scriptsize, align=center] (usercrud) {User / Session CRUD};
-\node[right=0.3cm of rtc, text width=2.2cm, font=\scriptsize, align=center] (audit) {Audit Logs \& Reports};
-
+% Connectors
 \draw[flowarrow] (pres) -- node[right,font=\scriptsize]{[1] HTTPS Navigation / User Action} (edge);
-\draw[flowarrow] (edge.south -| auth.north) -- node[left,font=\scriptsize]{[2a] Credentials \& Profile} (auth.north);
-\draw[flowarrow] (edge.south) -- node[right,font=\scriptsize]{[2b] Social \& Academic API} (social.north);
-\draw[flowarrow] (edge.south -| ai.north) -- node[right,font=\scriptsize]{[2c] Content Inspection} (ai.north);
-\draw[flowarrow] (social.south) -- node[right,font=\scriptsize]{[3] Real-time Triggers} (rtc.north);
-\draw[flowarrow] (rtc.south) -- node[right,font=\scriptsize]{[4] Relational CRUD \& Sync} (persist.north);
+\draw[flowarrow] (edge.south -| auth.north) -- node[left=1pt,font=\scriptsize]{[2a] Credentials \& Profile} (auth.north);
+\draw[flowarrow] (edge.south) -- node[right=1pt,font=\scriptsize]{[2b] Social \& Academic API} (social.north);
+\draw[flowarrow] (edge.south -| ai.north) -- node[right=1pt,font=\scriptsize]{[2c] Content Inspection} (ai.north);
+
+\draw[flowarrow] (social.south) -- node[right=2pt,font=\scriptsize]{[3] Real-time Triggers} (rtc.north);
+\draw[flowarrow] (rtc.south) -- node[right=2pt,font=\scriptsize]{[4] Relational CRUD \& Sync} (persist.north);
+
+% Vertical DB Connectors from Auth and AI to Persistence (Completely clear of RTC box)
+\draw[flowarrow] (auth.south) -- node[left=3pt,font=\scriptsize,align=right]{User / Session\\CRUD} (persist.north -| auth.south);
+\draw[flowarrow] (ai.south) -- node[right=3pt,font=\scriptsize,align=left]{Audit Logs\\\& Reports} (persist.north -| ai.south);
 \end{tikzpicture}
 \caption{CampusConnect Three-Tier Enterprise System Architecture}
 \label{fig:architecture}
@@ -309,20 +327,29 @@ VerificationToken & token & --- & Cryptographic tokens for email validation. \\
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[node distance=1.3cm and 1.6cm,
-  erbox/.style={rectangle, rounded corners=3pt, draw=black!60, thick, align=center, font=\small, minimum height=1cm}]
-\node[erbox, fill=tealbox, text width=3cm] (user) {\textbf{User}\\ \footnotesize (id, role, email)};
-\node[erbox, fill=purplebox, text width=3cm, above right=1.0cm and 2.6cm of user] (post) {\textbf{Post}\\ \footnotesize (id, content, authorId)};
-\node[erbox, fill=orangebox, text width=3cm, right=2.2cm of post] (modreport) {\textbf{ModerationReport}\\ \footnotesize (id, reason, status)};
-\node[erbox, fill=tealbox, text width=3cm, below right=1.0cm and 2.6cm of user] (group) {\textbf{Group}\\ \footnotesize (id, type, name)};
-\node[erbox, fill=greenbox, text width=3cm, right=2.2cm of group] (material) {\textbf{Material}\\ \footnotesize (id, url, fileType)};
-\node[erbox, fill=bluebox, text width=3cm, below=2.1cm of user] (message) {\textbf{Message}\\ \footnotesize (id, text, isRead)};
+\begin{tikzpicture}[>=Stealth,
+  erbox/.style={
+    rectangle, rounded corners=3pt, draw=black!70, line width=0.8pt, align=center,
+    font=\small, minimum height=1.05cm, text width=3.4cm, inner sep=3pt
+  },
+  erbox_wide/.style={
+    rectangle, rounded corners=3pt, draw=black!70, line width=0.8pt, align=center,
+    font=\small, minimum height=1.05cm, text width=3.85cm, inner sep=3pt
+  },
+  flowarrow/.style={-{Stealth[length=2.8mm, width=2.0mm]}, line width=0.8pt, shorten >= 4.5pt, shorten <= 3pt}
+]
+\node[erbox, fill=tealbox] (user) at (-5.7, 0) {\textbf{User}\\[1.5pt] \scriptsize (\texttt{id, role, email})};
+\node[erbox, fill=purplebox] (post) at (0, 1.2) {\textbf{Post}\\[1.5pt] \scriptsize (\texttt{id, content, authorId})};
+\node[erbox_wide, fill=orangebox] (modreport) at (5.7, 1.2) {\textbf{ModerationReport}\\[1.5pt] \scriptsize (\texttt{id, reason, status})};
+\node[erbox, fill=tealbox] (group) at (0, -1.2) {\textbf{Group}\\[1.5pt] \scriptsize (\texttt{id, type, name})};
+\node[erbox_wide, fill=greenbox] (material) at (5.7, -1.2) {\textbf{Material}\\[1.5pt] \scriptsize (\texttt{id, url, fileType})};
+\node[erbox, fill=bluebox] (message) at (-5.7, -2.25) {\textbf{Message}\\[1.5pt] \scriptsize (\texttt{id, text, isRead})};
 
-\draw[flowarrow] (user) -- node[above,sloped,font=\scriptsize]{1:N Authors} (post);
-\draw[flowarrow] (post) -- node[above,font=\scriptsize]{1:1 Flags} (modreport);
-\draw[flowarrow] (user) -- node[below,sloped,font=\scriptsize]{1:N Manages} (group);
-\draw[flowarrow] (group) -- node[above,font=\scriptsize]{1:N Indexes} (material);
-\draw[flowarrow] (user) -- node[right,font=\scriptsize]{1:N Exchanges} (message);
+\draw[flowarrow] (user.east) -- node[above=2pt,sloped,font=\scriptsize,pos=0.54]{1:N Authors} (post.west);
+\draw[flowarrow] (post.east) -- node[above=2pt,font=\scriptsize,pos=0.50]{1:1 Flags} (modreport.west);
+\draw[flowarrow] (user.east) -- node[below=2pt,sloped,font=\scriptsize,pos=0.54]{1:N Manages} (group.west);
+\draw[flowarrow] (group.east) -- node[above=2pt,font=\scriptsize,pos=0.50]{1:N Indexes} (material.west);
+\draw[flowarrow] (user.south) -- node[left=3pt,font=\scriptsize,pos=0.50]{1:N Exchanges} (message.north);
 \end{tikzpicture}
 \caption{Relational Schema Associations and Cascade Graph}
 \label{fig:er-graph}
@@ -334,66 +361,68 @@ To guarantee that the software architecture accurately models real-world institu
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  swimbox/.style={rectangle, rounded corners=2pt, draw=black!60, thick, text width=2.5cm, align=center, font=\scriptsize\bfseries, minimum height=0.9cm},
+\begin{tikzpicture}[scale=0.82, transform shape, >=Stealth,
+  swimbox/.style={rectangle, rounded corners=2pt, draw=black!60, thick, text width=2.4cm, align=center, font=\scriptsize\bfseries, minimum height=0.9cm},
   lane/.style={draw=black!40, thick}
 ]
 % Lane headers
-\node[swimbox, fill=blue!15, text width=2.6cm] (h1) at (0,0) {Student Peer};
-\node[swimbox, fill=green!15, text width=2.6cm] (h2) at (3.1,0) {Faculty / Teacher};
-\node[swimbox, fill=pink!30, text width=2.6cm] (h3) at (6.2,0) {Platform \& AI Agent};
-\node[swimbox, fill=orange!25, text width=2.6cm] (h4) at (9.3,0) {Administrator};
+\node[swimbox, fill=blue!15, text width=2.5cm] (h1) at (0,0) {Student Peer};
+\node[swimbox, fill=green!15, text width=2.5cm] (h2) at (3.1,0) {Faculty / Teacher};
+\node[swimbox, fill=pink!30, text width=2.5cm] (h3) at (6.2,0) {Platform \& AI Agent};
+\node[swimbox, fill=orange!25, text width=2.5cm] (h4) at (9.4,0) {Administrator};
 
 % Lane separators
-\draw[lane] (-1.4,0.6) rectangle (10.6,-13.6);
-\draw[lane] (1.5,0.6) -- (1.5,-13.6);
-\draw[lane] (4.6,0.6) -- (4.6,-13.6);
-\draw[lane] (7.7,0.6) -- (7.7,-13.6);
+\draw[lane] (-1.5,0.6) rectangle (10.8,-13.8);
+\draw[lane] (1.55,0.6) -- (1.55,-13.8);
+\draw[lane] (4.65,0.6) -- (4.65,-13.8);
+\draw[lane] (7.75,0.6) -- (7.75,-13.8);
 
 % Row 1
-\node[swimbox, fill=teal!20] (reg) at (0,-1.7) {Register via Email \& Student ID};
-\node[swimbox, fill=pink!20] (validate) at (6.2,-1.7) {Validate Whitelist \& Issue Token};
-\node[swimbox, fill=orange!25] (config) at (9.3,-1.7) {Configure Whitelist \& Join Rules};
+\node[swimbox, fill=teal!20] (reg) at (0,-1.7) {Register via Email\\\& Student ID};
+\node[swimbox, fill=pink!20] (validate) at (6.2,-1.7) {Validate Whitelist\\\& Issue Token};
+\node[swimbox, fill=orange!25] (config) at (9.4,-1.7) {Configure Whitelist\\\& Join Rules};
 
 % Row 2
-\node[swimbox, fill=teal!20] (facreg) at (3.1,-3.3) {Register via Faculty Invite};
+\node[swimbox, fill=teal!20] (facreg) at (3.1,-3.3) {Register via\\Faculty Invite};
 
 % Row 3
-\node[swimbox, fill=teal!20] (creategrp) at (3.1,-4.9) {Create Group \& Upload Notes};
-\node[swimbox, fill=pink!20] (stream) at (6.2,-4.9) {Stream to Cloudinary \& Index Calendar};
+\node[swimbox, fill=teal!20] (creategrp) at (3.1,-4.9) {Create Group\\\& Upload Notes};
+\node[swimbox, fill=pink!20] (stream) at (6.2,-4.9) {Stream to Cloudinary\\\& Index Calendar};
 
 % Row 4
-\node[swimbox, fill=teal!20] (joingrp) at (0,-6.5) {Join Group \& Download PDFs};
+\node[swimbox, fill=teal!20] (joingrp) at (0,-6.5) {Join Group\\\& Download PDFs};
 
 % Row 5
-\node[swimbox, fill=teal!20] (createpost) at (0,-8.1) {Create Social Post with Text/Images};
-\node[swimbox, fill=pink!20, text width=2.9cm, minimum height=1.5cm] (gemini) at (6.2,-8.1) {Gemini Safety Agent Auto-Scan Post Content};
+\node[swimbox, fill=teal!20] (createpost) at (0,-8.1) {Create Social Post\\with Text/Images};
+\node[swimbox, fill=pink!20, minimum height=1.3cm] (gemini) at (6.2,-8.1) {Gemini Safety Agent\\Auto-Scan Post Content};
 
 % Row 6
-\node[swimbox, fill=teal!20] (browse) at (0,-10.0) {Browse Campus Feed \& WebSocket Chat};
-\node[swimbox, fill=pink!20, text width=2.9cm, minimum height=1.5cm] (autohide) at (6.2,-10.0) {Auto-Hide Violations \& Queue Admin Audit};
-\node[swimbox, fill=orange!25] (review) at (9.3,-10.0) {Review Flagged Post Enforce / Overrule};
+\node[swimbox, fill=teal!20] (browse) at (0,-10.2) {Browse Campus Feed\\\& WebSocket Chat};
+\node[swimbox, fill=pink!20, minimum height=1.3cm] (autohide) at (6.2,-10.2) {Auto-Hide Violations\\\& Queue Admin Audit};
+\node[swimbox, fill=orange!25] (review) at (9.4,-10.2) {Review Flagged Post\\Enforce / Overrule};
 
 % Row 7
-\node[swimbox, fill=teal!20] (verified) at (0,-11.9) {Verified Academic Collaboration};
-\node[swimbox, fill=orange!25] (enforced) at (9.3,-11.9) {Enforced Community Safety Protocol};
+\node[swimbox, fill=teal!20] (verified) at (0,-12.1) {Verified Academic\\Collaboration};
+\node[swimbox, fill=orange!25] (enforced) at (9.4,-12.1) {Enforced Community\\Safety Protocol};
 
-% Arrows
-\draw[flowarrow] (reg) -- (validate);
-\draw[flowarrow] (config) -- (validate);
-\draw[flowarrow] (facreg) -- (validate);
-\draw[flowarrow] (facreg) -- (creategrp);
-\draw[flowarrow] (creategrp) -- (stream);
-\draw[flowarrow] (stream.west) .. controls +(-2,0) .. (joingrp.north);
-\draw[flowarrow] (validate.west) .. controls +(-2,-1) .. (reg.east);
-\draw[flowarrow] (joingrp) -- (createpost);
-\draw[flowarrow] (createpost) -- (gemini);
-\draw[flowarrow] (browse.north) -- node[left,font=\tiny,xshift=1mm]{Verdict: Safe} (gemini.south -| browse.north);
-\draw[flowarrow] (createpost) -- (browse);
-\draw[flowarrow] (browse) -- (verified);
-\draw[flowarrow] (gemini) -- node[left,font=\tiny,xshift=-1mm]{Flagged} (autohide);
-\draw[flowarrow] (autohide) -- (review);
-\draw[flowarrow] (review) -- (enforced);
+% Clean orthogonal connectors (no arrows entering inside boxes, clean anchors)
+\draw[flowarrow] (config.west) -- (validate.east);
+\draw[flowarrow] (reg.east) -- (validate.west);
+\draw[flowarrow] (facreg.east) -| (validate.south);
+\draw[flowarrow] (facreg.south) -- (creategrp.north);
+\draw[flowarrow] (creategrp.east) -- (stream.west);
+\draw[flowarrow] (stream.south) |- (joingrp.east);
+\draw[flowarrow] (reg.south) -- (joingrp.north);
+\draw[flowarrow] (joingrp.south) -- (createpost.north);
+\draw[flowarrow] (createpost.east) -- (gemini.west);
+
+% Moderation branches
+\draw[flowarrow] (gemini.south) -- node[right=2pt,font=\scriptsize]{Flagged} (autohide.north);
+\draw[flowarrow] ([xshift=-5mm]gemini.south) -- ++(0,-0.35) -| node[above,pos=0.25,font=\scriptsize]{Verdict: Safe} (browse.north);
+
+\draw[flowarrow] (autohide.east) -- (review.west);
+\draw[flowarrow] (review.south) -- (enforced.north);
+\draw[flowarrow] (browse.south) -- (verified.north);
 \end{tikzpicture}
 \caption{CampusConnect Cross-Functional Swimlane Operational Lifecycle}
 \label{fig:swimlane}
@@ -512,17 +541,26 @@ To cultivate trusted peer networks, CampusConnect implements a full friend syste
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[node distance=1.4cm]
-\node[flowbox=tealbox, text width=3cm] (submit) {User Submits Post\\(Text \& Media)};
-\node[flowbox=purplebox, text width=3.2cm, right=of submit] (gemini2) {Gemini 2.5 Flash Moderation Agent};
-\node[flowbox=greenbox, text width=3cm, right=of gemini2] (publish) {Publish to Feed Socket Broadcast};
-\node[flowbox=redbox, text width=3.2cm, below=of gemini2] (autohide2) {Auto-Hide Record\\(isHidden = true)};
-\node[flowbox=orangebox, text width=3.2cm, right=of autohide2] (adminq) {Admin Flagged Queue Review \& Resolve};
+\begin{tikzpicture}[>=Stealth]
+\node[flowbox=tealbox, text width=3.2cm] (submit) at (0, 0)
+  {User Submits Post\\[2pt] \footnotesize (Text \& Media)};
+
+\node[flowbox=purplebox, text width=3.4cm] (gemini2) at (4.7, 0)
+  {Gemini 2.5 Flash\\[2pt] Moderation Agent};
+
+\node[flowbox=greenbox, text width=3.2cm] (publish) at (10.2, 0)
+  {Publish to Feed\\[2pt] Socket Broadcast};
+
+\node[flowbox=redbox, text width=3.4cm] (autohide2) at (4.7, -2.4)
+  {Auto-Hide Record\\[2pt] \footnotesize (\texttt{isHidden = true})};
+
+\node[flowbox=orangebox, text width=3.2cm] (adminq) at (10.2, -2.4)
+  {Admin Flagged Queue\\[2pt] Review \& Resolve};
 
 \draw[flowarrow] (submit) -- (gemini2);
-\draw[flowarrow] (gemini2) -- node[above,font=\scriptsize]{Verdict: Safe} (publish);
-\draw[flowarrow] (gemini2) -- node[right,font=\scriptsize]{Flagged} (autohide2);
-\draw[flowarrow] (autohide2) -- node[above,font=\scriptsize]{Queue Notification} (adminq);
+\draw[flowarrow] (gemini2) -- node[above=2pt,font=\scriptsize]{Verdict: Safe} (publish);
+\draw[flowarrow] (gemini2) -- node[right=2pt,font=\scriptsize]{Flagged} (autohide2);
+\draw[flowarrow] (autohide2) -- node[above=2pt,font=\scriptsize,align=center]{Queue\\Notification} (adminq);
 \end{tikzpicture}
 \caption{Phase 4 Social Feed and Automated Moderation Pipeline}
 \label{fig:phase4-pipeline}
